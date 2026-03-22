@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aprenda a comer bem por 7 dias com apenas R$120. Cardápio, lista de compras e receitas prontas para universitários." />
+  <title>7 Dias de Comida com R$120 | Coma bem sem gastar muito</title>
+
+  <!-- Google Fonts: Syne (display) + DM Sans (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       RESET & VARIÁVEIS
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:        #0f8a5f;
+      --green-dark:   #0a6646;
+      --green-light:  #d4f0e5;
+      --yellow:       #f2c94c;
+      --yellow-dark:  #d4a800;
+      --black:        #0e0e0e;
+      --gray-dark:    #1e1e1e;
+      --gray-mid:     #3a3a3a;
+      --gray-light:   #f5f5f5;
+      --white:        #ffffff;
+      --radius:       14px;
+      --shadow:       0 8px 32px rgba(0,0,0,.14);
+      --transition:   .25s ease;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--black);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ============================================================
+       UTILITÁRIOS
+    ============================================================ */
+    .container {
+      width: 100%;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .section { padding: 72px 0; }
+    .section--dark  { background: var(--black); color: var(--white); }
+    .section--green { background: var(--green); color: var(--white); }
+    .section--gray  { background: var(--gray-light); }
+
+    .tag {
+      display: inline-block;
+      background: var(--yellow);
+      color: var(--black);
+      font-family: 'Syne', sans-serif;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 4px;
+      margin-bottom: 16px;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Syne', sans-serif;
+      line-height: 1.15;
+    }
+
+    h2 { font-size: clamp(1.6rem, 4vw, 2.2rem); margin-bottom: 16px; }
+    h3 { font-size: 1.15rem; margin-bottom: 8px; }
+
+    p { margin-bottom: 12px; }
+
+    /* ============================================================
+       BOTÃO CTA
+    ============================================================ */
+    .btn {
+      display: inline-block;
+      background: var(--yellow);
+      color: var(--black);
+      font-family: 'Syne', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: .02em;
+      text-decoration: none;
+      padding: 18px 36px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+      box-shadow: 0 4px 18px rgba(242,201,76,.4);
+      text-align: center;
+    }
+    .btn:hover {
+      background: var(--yellow-dark);
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 10px 28px rgba(242,201,76,.55);
+    }
+    .btn:active { transform: scale(.97); }
+
+    .btn--full { display: block; width: 100%; }
+
+    .btn-sub {
+      display: block;
+      font-size: .78rem;
+      color: var(--gray-mid);
+      margin-top: 8px;
+      text-align: center;
+    }
+
+    /* ============================================================
+       ANNOUNCEMENT BAR
+    ============================================================ */
+    .bar {
+      background: var(--green);
+      color: var(--white);
+      text-align: center;
+      padding: 10px 16px;
+      font-size: .82rem;
+      font-weight: 600;
+      letter-spacing: .03em;
+    }
+    .bar span { color: var(--yellow); font-weight: 700; }
+
+    /* ============================================================
+       1. HERO
+    ============================================================ */
+    .hero {
+      background: var(--black);
+      color: var(--white);
+      padding: 64px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* decorative blobs */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 360px; height: 360px;
+      background: radial-gradient(circle, rgba(15,138,95,.35) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; left: -60px;
+      width: 280px; height: 280px;
+      background: radial-gradient(circle, rgba(242,201,76,.15) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero .container { position: relative; z-index: 1; }
+
+    .hero__price-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 50px;
+      padding: 6px 16px;
+      font-size: .82rem;
+      color: var(--yellow);
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+    .hero__price-badge::before {
+      content: '🔥';
+      font-size: 1rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 7vw, 3.4rem);
+      font-weight: 800;
+      margin-bottom: 20px;
+      max-width: 700px;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--yellow);
+    }
+
+    .hero__sub {
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      color: rgba(255,255,255,.75);
+      max-width: 540px;
+      margin-bottom: 36px;
+    }
+
+    .hero__img {
+      margin-top: 48px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      max-height: 360px;
+      box-shadow: var(--shadow);
+      border: 3px solid rgba(255,255,255,.08);
+    }
+
+    /* ============================================================
+       2. PROBLEMA
+    ============================================================ */
+    .problem__grid {
+      display: grid;
+      gap: 36px;
+      align-items: center;
+    }
+
+    .problem__text .lead {
+      font-size: 1.12rem;
+      font-weight: 500;
+      color: var(--gray-mid);
+      margin-bottom: 16px;
+    }
+
+    .problem__img {
+      border-radius: var(--radius);
+      overflow: hidden;
+      max-height: 280px;
+      box-shadow: var(--shadow);
+    }
+
+    /* ============================================================
+       3. SOLUÇÃO
+    ============================================================ */
+    .solution__grid {
+      display: grid;
+      gap: 36px;
+      align-items: center;
+    }
+
+    .solution__img {
+      border-radius: var(--radius);
+      overflow: hidden;
+      max-height: 300px;
+      box-shadow: var(--shadow);
+      order: -1;
+    }
+
+    .steps {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .steps li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .steps__num {
+      flex-shrink: 0;
+      width: 36px; height: 36px;
+      background: var(--green);
+      color: var(--white);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-size: .9rem;
+      font-weight: 800;
+    }
+
+    /* ============================================================
+       4. PROVA
+    ============================================================ */
+    .proof { background: var(--gray-light); }
+
+    .proof__grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .proof__img {
+      border-radius: var(--radius);
+      overflow: hidden;
+      max-height: 240px;
+      box-shadow: var(--shadow);
+    }
+
+    .proof__quote {
+      margin-top: 36px;
+      background: var(--white);
+      border-left: 4px solid var(--green);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 20px 24px;
+      font-size: 1.05rem;
+      font-style: italic;
+      color: var(--gray-mid);
+    }
+
+    /* ============================================================
+       5. O QUE VOCÊ VAI RECEBER
+    ============================================================ */
+    .receive__grid {
+      display: grid;
+      gap: 36px;
+      align-items: center;
+    }
+
+    .receive__img {
+      border-radius: var(--radius);
+      overflow: hidden;
+      max-height: 320px;
+      box-shadow: 0 12px 40px rgba(0,0,0,.18);
+    }
+
+    .receive__list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .receive__list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    .check {
+      flex-shrink: 0;
+      width: 24px; height: 24px;
+      background: var(--green);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--white);
+      font-size: .8rem;
+    }
+
+    /* ============================================================
+       6. PARA QUEM É
+    ============================================================ */
+    .for-who { background: var(--green); }
+
+    .for-who h2 { color: var(--yellow); }
+
+    .bullets {
+      list-style: none;
+      display: grid;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .bullets li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.02rem;
+      color: rgba(255,255,255,.92);
+    }
+
+    .bullets li::before {
+      content: '✓';
+      flex-shrink: 0;
+      width: 26px; height: 26px;
+      background: var(--yellow);
+      color: var(--black);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800;
+      font-size: .85rem;
+    }
+
+    /* ============================================================
+       7. CTA REPETIÇÃO
+    ============================================================ */
+    .cta-mid { background: var(--black); }
+
+    .cta-mid__box {
+      background: linear-gradient(135deg, #0f8a5f 0%, #0a6646 100%);
+      border-radius: 20px;
+      padding: 48px 28px;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(15,138,95,.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-mid__box::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 200px; height: 200px;
+      background: rgba(255,255,255,.06);
+      border-radius: 50%;
+    }
+
+    .cta-mid__price {
+      font-family: 'Syne', sans-serif;
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--yellow);
+      margin: 16px 0;
+    }
+
+    .cta-mid__price span {
+      font-size: 1.4rem;
+      vertical-align: super;
+    }
+
+    .cta-mid__from {
+      font-size: .88rem;
+      color: rgba(255,255,255,.6);
+      text-decoration: line-through;
+      margin-bottom: 4px;
+    }
+
+    /* ============================================================
+       8. GARANTIA
+    ============================================================ */
+    .guarantee {
+      background: var(--gray-light);
+      text-align: center;
+    }
+
+    .guarantee__box {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      max-width: 520px;
+    }
+
+    .guarantee__icon {
+      width: 72px; height: 72px;
+      background: var(--green);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem;
+    }
+
+    /* ============================================================
+       9. CTA FINAL
+    ============================================================ */
+    .cta-final {
+      background: var(--black);
+      text-align: center;
+      padding: 96px 0;
+    }
+
+    .cta-final h2 { color: var(--white); margin-bottom: 8px; }
+
+    .cta-final__sub {
+      color: rgba(255,255,255,.6);
+      font-size: 1rem;
+      margin-bottom: 36px;
+    }
+
+    .urgency-badge {
+      display: inline-block;
+      background: rgba(242,201,76,.12);
+      border: 1px solid rgba(242,201,76,.3);
+      color: var(--yellow);
+      font-size: .82rem;
+      font-weight: 600;
+      padding: 6px 16px;
+      border-radius: 50px;
+      margin-bottom: 24px;
+      letter-spacing: .04em;
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    footer {
+      background: var(--gray-dark);
+      color: rgba(255,255,255,.45);
+      text-align: center;
+      padding: 28px 20px;
+      font-size: .8rem;
+    }
+
+    footer a { color: rgba(255,255,255,.55); text-decoration: none; }
+
+    /* ============================================================
+       STICKY CTA (mobile)
+    ============================================================ */
+    .sticky-cta {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: var(--black);
+      border-top: 2px solid var(--green);
+      padding: 12px 20px;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      transform: translateY(100%);
+      transition: transform .4s cubic-bezier(.22,1,.36,1);
+    }
+
+    .sticky-cta.visible { transform: translateY(0); }
+
+    .sticky-cta__text {
+      font-size: .82rem;
+      color: rgba(255,255,255,.75);
+      line-height: 1.3;
+    }
+
+    .sticky-cta__text strong {
+      display: block;
+      color: var(--yellow);
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+    }
+
+    .sticky-cta .btn {
+      flex-shrink: 0;
+      font-size: .88rem;
+      padding: 12px 22px;
+    }
+
+    /* ============================================================
+       RESPONSIVE — TABLET & DESKTOP
+    ============================================================ */
+    @media (min-width: 640px) {
+
+      .problem__grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .solution__grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .solution__img { order: 0; }
+
+      .receive__grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .bullets {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .sticky-cta { display: none; } /* hidden on desktop */
+    }
+
+    /* ============================================================
+       ANIMATION — FADE IN ON SCROLL
+    ============================================================ */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* stagger children */
+    .fade-in:nth-child(2) { transition-delay: .1s; }
+    .fade-in:nth-child(3) { transition-delay: .2s; }
+    .fade-in:nth-child(4) { transition-delay: .3s; }
+
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       ANNOUNCEMENT BAR
+  ============================================================ -->
+  <div class="bar">
+    ⚡ Oferta especial: por apenas <span>R$27</span> — acesso imediato
+  </div>
+
+  <!-- ============================================================
+       1. HERO
+  ============================================================ -->
+  <section class="hero" id="hero">
+    <div class="container">
+
+      <div class="hero__price-badge">Método testado por universitários reais</div>
+
+      <h1>
+        <em>7 dias de comida</em><br />
+        com R$120 — sem passar fome
+      </h1>
+
+      <p class="hero__sub">
+        Cardápio completo, lista de compras e receitas simples. Você aprende
+        a comer bem, economizar de verdade e ainda sobra tempo para estudar.
+      </p>
+
+      <a href="#comprar" class="btn">
+        QUERO COMER BEM POR R$120 →
+      </a>
+      <span class="btn-sub">Acesso imediato • Pagamento seguro • Só R$27</span>
+
+      <!-- Imagem hero -->
+      <div class="hero__img">
+        <img src="/imgs/01.jpg" alt="Prato de comida saudável e farta" loading="eager" />
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       2. PROBLEMA
+  ============================================================ -->
+  <section class="section" id="problema">
+    <div class="container">
+      <div class="tag">O problema</div>
+
+      <div class="problem__grid">
+
+        <div class="problem__text fade-in">
+          <h2>Todo mês é a mesma história…</h2>
+          <p class="lead">
+            Você gasta o dinheiro logo nos primeiros dias e na segunda semana já
+            não sabe o que comer. Ou então fica só no lanche e miojo porque
+            "não tem dinheiro".
+          </p>
+          <p>
+            O problema não é o seu salário. É que ninguém te ensinou a
+            <strong>planejar a alimentação com pouco dinheiro.</strong>
+          </p>
+          <p>
+            Com R$120 dá sim pra comer bem — você só precisa saber o que
+            comprar e como preparar. E é exatamente isso que esse guia entrega.
+          </p>
+        </div>
+
+        <div class="problem__img fade-in">
+          <img src="/imgs/02.jpg" alt="Universitário preocupado com dinheiro" loading="lazy" />
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       3. SOLUÇÃO
+  ============================================================ -->
+  <section class="section section--dark" id="solucao">
+    <div class="container">
+      <div class="tag">A solução</div>
+
+      <div class="solution__grid">
+
+        <div class="solution__img fade-in">
+          <img src="/imgs/03.jpg" alt="Método de planejamento alimentar" loading="lazy" />
+        </div>
+
+        <div class="solution__text fade-in">
+          <h2>Um método simples de 3 passos</h2>
+          <p style="color:rgba(255,255,255,.7)">
+            Nada de dieta complicada. Nada de receita de chef. Só o que
+            funciona na prática pra quem tem pouco tempo e pouco dinheiro.
+          </p>
+
+          <ol class="steps">
+            <li>
+              <span class="steps__num">1</span>
+              <div>
+                <strong>Compre certo</strong><br />
+                <span style="color:rgba(255,255,255,.65);font-size:.95rem">
+                  Lista de compras pronta com os itens certos, no lugar certo,
+                  pelo preço certo.
+                </span>
+              </div>
+            </li>
+            <li>
+              <span class="steps__num">2</span>
+              <div>
+                <strong>Siga o cardápio</strong><br />
+                <span style="color:rgba(255,255,255,.65);font-size:.95rem">
+                  7 dias de refeições organizadas — café, almoço e jantar —
+                  sem precisar pensar.
+                </span>
+              </div>
+            </li>
+            <li>
+              <span class="steps__num">3</span>
+              <div>
+                <strong>Prepare em minutos</strong><br />
+                <span style="color:rgba(255,255,255,.65);font-size:.95rem">
+                  Receitas rápidas que qualquer pessoa faz, mesmo sem saber
+                  cozinhar.
+                </span>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       4. PROVA
+  ============================================================ -->
+  <section class="section proof" id="prova">
+    <div class="container">
+      <div class="tag">Resultado real</div>
+
+      <h2 class="fade-in">Isso é o que R$120 compra — e dura os 7 dias</h2>
+      <p class="fade-in" style="color:var(--gray-mid);max-width:540px">
+        Não é mágica. É organização. Veja o que dá pra colocar no carrinho
+        e o quanto de comida sai disso.
+      </p>
+
+      <div class="proof__grid fade-in">
+        <div class="proof__img">
+          <img src="/imgs/04.jpg" alt="Compras de supermercado organizadas" loading="lazy" />
+        </div>
+        <div class="proof__img">
+          <img src="/imgs/05.jpg" alt="Refeições preparadas da semana" loading="lazy" />
+        </div>
+      </div>
+
+      <blockquote class="proof__quote fade-in">
+        "Segui o cardápio direitinho e sobrou dinheiro no final da semana.
+        Nunca achei que fosse possível comer tão bem com tão pouco."
+        <br /><strong style="font-style:normal;color:var(--green)">— Ana L., estudante de Direito</strong>
+      </blockquote>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       5. O QUE VOCÊ VAI RECEBER
+  ============================================================ -->
+  <section class="section" id="conteudo">
+    <div class="container">
+      <div class="tag">O que você recebe</div>
+
+      <div class="receive__grid">
+
+        <div class="fade-in">
+          <h2>Tudo pronto, você só executa</h2>
+          <p style="color:var(--gray-mid)">
+            Sem precisar pesquisar receita, fazer conta ou ficar perdido no
+            supermercado. Tudo que você precisa está dentro do guia.
+          </p>
+
+          <ul class="receive__list">
+            <li>
+              <span class="check">✔</span>
+              <div>
+                <strong>Lista de compras completa</strong><br />
+                <span style="font-size:.92rem;color:var(--gray-mid)">
+                  Itens separados por categoria para não esquecer nada e não
+                  gastar além do necessário.
+                </span>
+              </div>
+            </li>
+            <li>
+              <span class="check">✔</span>
+              <div>
+                <strong>Cardápio de 7 dias</strong><br />
+                <span style="font-size:.92rem;color:var(--gray-mid)">
+                  Café da manhã, almoço e jantar montados. Sem repetição
+                  cansativa, sem fome.
+                </span>
+              </div>
+            </li>
+            <li>
+              <span class="check">✔</span>
+              <div>
+                <strong>Receitas simples e rápidas</strong><br />
+                <span style="font-size:.92rem;color:var(--gray-mid)">
+                  Passo a passo fácil para quem nunca cozinhou. Em menos de
+                  30 minutos você resolve a refeição.
+                </span>
+              </div>
+            </li>
+            <li>
+              <span class="check">✔</span>
+              <div>
+                <strong>Dicas de economia no mercado</strong><br />
+                <span style="font-size:.92rem;color:var(--gray-mid)">
+                  Saiba o que comprar na feira, o que congelar e como fazer
+                  o dinheiro render mais.
+                </span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="receive__img fade-in">
+          <img src="/imgs/06.jpg" alt="Mockup do guia digital 7 dias de comida com R$120" loading="lazy" />
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       6. PARA QUEM É
+  ============================================================ -->
+  <section class="section for-who" id="para-quem">
+    <div class="container">
+      <div class="tag" style="background:rgba(255,255,255,.15);color:var(--yellow)">
+        Para quem é
+      </div>
+      <h2>Esse guia foi feito pra você se…</h2>
+
+      <ul class="bullets fade-in">
+        <li>Você é universitário ou mora sozinho</li>
+        <li>O dinheiro acaba antes do mês terminar</li>
+        <li>Você vive de lanche ou miojo por falta de opção</li>
+        <li>Não tem tempo para ficar pesquisando receita</li>
+        <li>Quer comer melhor mas não sabe como economizar</li>
+        <li>Precisa de um plano prático, não de teoria</li>
+      </ul>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       7. CTA REPETIÇÃO
+  ============================================================ -->
+  <section class="section cta-mid" id="comprar">
+    <div class="container">
+      <div class="cta-mid__box fade-in">
+
+        <p style="color:rgba(255,255,255,.75);font-size:.95rem">
+          Acesso imediato após o pagamento
+        </p>
+        <h2 style="color:var(--white);font-size:clamp(1.5rem,4vw,2rem)">
+          7 Dias de Comida com R$120
+        </h2>
+
+        <p class="cta-mid__from">De R$47</p>
+        <div class="cta-mid__price">
+          <span>R$</span>27
+        </div>
+        <p style="color:rgba(255,255,255,.65);font-size:.88rem;margin-bottom:28px">
+          Pagamento único • PDF para baixar na hora
+        </p>
+
+        <a href="#" class="btn" style="font-size:1.1rem;padding:20px 44px">
+          QUERO COMEÇAR AGORA →
+        </a>
+
+        <p style="color:rgba(255,255,255,.5);font-size:.78rem;margin-top:14px">
+          🔒 Pagamento 100% seguro · Funciona no celular
+        </p>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       8. GARANTIA
+  ============================================================ -->
+  <section class="section guarantee" id="garantia">
+    <div class="container" style="display:flex;justify-content:center">
+      <div class="guarantee__box fade-in">
+        <div class="guarantee__icon">🛡️</div>
+        <h2>Garantia de 7 dias</h2>
+        <p style="color:var(--gray-mid);max-width:420px;text-align:center">
+          Se você aplicar o método e não estiver satisfeito, devolvemos seu
+          dinheiro integralmente em até 7 dias. Sem burocracia, sem pergunta.
+          Risco zero para você.
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       9. CTA FINAL
+  ============================================================ -->
+  <section class="cta-final" id="cta-final">
+    <div class="container">
+
+      <span class="urgency-badge">⏳ Preço promocional por tempo limitado</span>
+
+      <h2>Para de passar perrengue com comida</h2>
+      <p class="cta-final__sub">
+        Por menos do que você gasta no delivery hoje, você tem 7 dias de
+        alimentação organizada, saborosa e dentro do orçamento.
+      </p>
+
+      <a href="#" class="btn" style="font-size:1.1rem;padding:20px 48px">
+        GARANTIR MEU GUIA POR R$27 →
+      </a>
+      <span class="btn-sub" style="color:rgba(255,255,255,.4)">
+        Acesso imediato • 7 dias de garantia
+      </span>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer>
+    <p>© 2025 7 Dias de Comida com R$120. Todos os direitos reservados.</p>
+    <p style="margin-top:6px">
+      <a href="#">Política de Privacidade</a> &nbsp;•&nbsp;
+      <a href="#">Termos de Uso</a> &nbsp;•&nbsp;
+      <a href="#">Contato</a>
+    </p>
+  </footer>
+
+
+  <!-- ============================================================
+       STICKY CTA (aparece ao rolar — só mobile)
+  ============================================================ -->
+  <div class="sticky-cta" id="stickyCta" aria-hidden="true">
+    <div class="sticky-cta__text">
+      <strong>R$27 — acesso imediato</strong>
+      7 dias de cardápio pronto
+    </div>
+    <a href="#comprar" class="btn">Quero →</a>
+  </div>
+
+
+  <!-- ============================================================
+       JAVASCRIPT — scroll animations + sticky CTA
+  ============================================================ -->
+  <script>
+    /* --- Fade-in ao rolar --- */
+    const fadeEls = document.querySelectorAll('.fade-in');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);   // dispara só uma vez
+        }
+      });
+    }, { threshold: 0.12 });
+
+    fadeEls.forEach(el => observer.observe(el));
+
+
+    /* --- Sticky CTA: aparece depois de rolar 60% do hero --- */
+    const stickyCta = document.getElementById('stickyCta');
+    const hero      = document.getElementById('hero');
+
+    const stickyObserver = new IntersectionObserver((entries) => {
+      // quando o hero sai da tela → mostra sticky
+      stickyCta.classList.toggle('visible', !entries[0].isIntersecting);
+      stickyCta.setAttribute('aria-hidden', entries[0].isIntersecting);
+    }, { threshold: 0.2 });
+
+    stickyObserver.observe(hero);
+
+
+    /* --- Smooth scroll para links âncora --- */
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', e => {
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
