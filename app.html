@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Do Mercado Pra Mesa - O Desafio dos R$ 50</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Tailwind Configuration & Custom Styles -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bgMain: '#F8FAFC',
+                        textMain: '#0F172A',
+                        textSec: '#475569',
+                        brandGreen: '#22C55E',
+                        brandYellow: '#F59E0B',
+                        brandRed: '#EF4444',
+                    },
+                    fontFamily: {
+                        sans: ['"Open Sans"', 'sans-serif'],
+                        poppins: ['"Poppins"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base Styles & Typography */
+        body {
+            background-color: #e2e8f0; /* Darker background outside the mobile app container */
+            color: #0F172A;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .highlight {
+            background-color: rgba(245, 158, 11, 0.2);
+            font-weight: 600;
+            padding: 0 4px;
+            border-radius: 4px;
+        }
+
+        .highlight-strong {
+            background-color: #F59E0B;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* Mobile App Container */
+        .app-container {
+            max-width: 480px;
+            margin: 0 auto;
+            background-color: #F8FAFC;
+            min-height: 100vh;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            position: relative;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Chart Container Rules (MANDATORY) */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            height: 280px; 
+            max-height: 350px;
+            padding: 10px;
+        }
+
+        /* Hide scrollbar for horizontal scrolling elements */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .nav-item.active {
+            color: #F59E0B;
+            border-top: 3px solid #F59E0B;
+            background-color: #fffbeb;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Chosen Palette: Do Mercado Pra Mesa Official (bgMain: #F8FAFC, textMain: #0F172A, textSec: #475569, brandGreen: #22C55E, brandYellow: #F59E0B, brandRed: #EF4444) -->
+    
+    <!-- Application Structure Plan: A mobile-first 'App' layout acting as a companion tool to the eBook.
+         Structure: 
+         - Bottom Navigation with 4 main views:
+           1. 🧠 Sistema (Modules 1 & 2): Mindset shift and the mathematical formula.
+           2. ⏱️ Prep (Module 3): Interactive Sunday Reset checklist to build habits.
+           3. 🛒 Arsenal (Module 4): The core value. Includes a Chart.js donut chart of the R$50 breakdown, an interactive 7-day horizontal scroll menu, and expandable recipe cards.
+           4. 🛠️ Raio-X (Module 5): Interactive pre-shopping checklist to find hidden ingredients.
+         Why: Translates a static book into an actionable, repeatable daily/weekly tool, directly supporting the brand promise of "predictability + control + mental relief". -->
+
+    <!-- Visualization & Content Choices: 
+         1. R$ 50 Breakdown -> Goal: Inform/Proportions -> Viz: Chart.js Donut Chart -> Interactivity: Hover tooltips -> Justification: Proves mathematically that R$50 is enough by breaking down exact costs.
+         2. Menu & Recipes -> Goal: Organize -> Viz: Horizontal scroll cards & Accordions (Vanilla JS + Tailwind) -> Interactivity: Click to expand details -> Justification: Keeps UI clean and prevents cognitive overload (decision fatigue).
+         3. Sunday Reset & Raio-X -> Goal: Action/Habits -> Viz: Interactive Checklists -> Interactivity: Click to strike-through and turn green -> Justification: Applies the brand's psychological trigger of "done/relieved".
+         - Confirming NO SVG used. Using standard Unicode Emojis for icons. NO Mermaid JS used. -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <div class="app-container pb-20">
+        
+        <!-- Header -->
+        <header class="bg-white/90 backdrop-blur-md border-b border-slate-200 px-6 py-4 sticky top-0 z-50 flex items-center justify-between">
+            <div>
+                <h1 class="font-poppins font-bold text-lg text-textMain tracking-tight flex items-center gap-2">
+                    <span class="text-brandYellow">🛒</span> Do Mercado Pra Mesa
+                </h1>
+                <p class="text-xs font-semibold text-textSec uppercase tracking-wider">Desafio dos R$ 50</p>
+            </div>
+            <div class="bg-brandGreen text-white text-xs font-bold px-2 py-1 rounded-md">Ativo</div>
+        </header>
+
+        <!-- Dynamic Content Area -->
+        <main id="main-content" class="flex-grow w-full fade-in">
+            <!-- Content gets injected here via JS -->
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bg-white border-t border-slate-200 fixed bottom-0 w-full max-w-[480px] flex justify-around items-center h-16 z-50 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+            <button onclick="navigate('sistema')" id="nav-sistema" class="nav-item active flex-1 flex flex-col items-center justify-center h-full text-slate-400 transition-colors border-t-3 border-transparent pt-1">
+                <span class="text-xl mb-1">🧠</span>
+                <span class="text-[10px] font-bold uppercase tracking-wider">Sistema</span>
+            </button>
+            <button onclick="navigate('prep')" id="nav-prep" class="nav-item flex-1 flex flex-col items-center justify-center h-full text-slate-400 transition-colors border-t-3 border-transparent pt-1">
+                <span class="text-xl mb-1">⏱️</span>
+                <span class="text-[10px] font-bold uppercase tracking-wider">Prep</span>
+            </button>
+            <button onclick="navigate('arsenal')" id="nav-arsenal" class="nav-item flex-1 flex flex-col items-center justify-center h-full text-slate-400 transition-colors border-t-3 border-transparent pt-1">
+                <span class="text-xl mb-1">🥩</span>
+                <span class="text-[10px] font-bold uppercase tracking-wider">Arsenal</span>
+            </button>
+            <button onclick="navigate('raiox')" id="nav-raiox" class="nav-item flex-1 flex flex-col items-center justify-center h-full text-slate-400 transition-colors border-t-3 border-transparent pt-1">
+                <span class="text-xl mb-1">🛠️</span>
+                <span class="text-[10px] font-bold uppercase tracking-wider">Raio-X</span>
+            </button>
+        </nav>
+
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // --- DATA ARCHITECTURE --- //
+        const data = {
+            budgetBreakdown: {
+                labels: ['Ovos (30 un)', 'Feijão (1kg)', 'Hortifruti (Xepa)', 'Arroz (1kg)', 'Calabresa (1 gomo)', 'Macarrão (500g)', 'Fubá (500g)'],
+                values: [18, 8, 6, 6, 5, 4, 3],
+                colors: ['#F59E0B', '#78350f', '#22C55E', '#f8fafc', '#EF4444', '#fde68a', '#fbbf24']
+            },
+            menu: [
+                { day: 1, title: 'O Início', breakfast: '2 ovos mexidos', lunch: 'Arroz, feijão c/ caldo grosso, 1 ovo frito, couve', dinner: 'Macarrão alho e óleo com pó de calabresa' },
+                { day: 2, title: 'Volume', breakfast: '2 ovos cozidos', lunch: 'Arroz, feijão, omelete fino c/ sobras', dinner: 'Polenta mole c/ molho rústico de cebola' },
+                { day: 3, title: 'Textura', breakfast: 'Ovos mexidos', lunch: 'Arroz, feijão, farofa de fubá, ovo estalado', dinner: 'Sopa de feijão engrossada c/ macarrão' },
+                { day: 4, title: 'Meio do Caminho', breakfast: '2 ovos cozidos', lunch: 'Arroz, feijão, 2 ovos mexidos c/ cebola', dinner: 'Polenta frita (sobras do Dia 2)' },
+                { day: 5, title: 'A Base', breakfast: 'Ovos mexidos', lunch: 'Arroz, feijão, omelete estufado', dinner: 'Macarrão salteado c/ alho e ovo' },
+                { day: 6, title: 'Especial', breakfast: '2 ovos cozidos', lunch: 'Arroz, feijão, farofa rica de ovos', dinner: 'Arroz frito (Limpa Geladeira)' },
+                { day: 7, title: 'Fechamento', breakfast: 'Ovos fritos', lunch: 'O banquete (Tudo que sobrou dos potes)', dinner: 'Macarrão c/ caldo de feijão e alho' }
+            ],
+            recipes: [
+                { id: 1, name: 'Macarrão "Engana Bolso"', cost: 'R$ 1,80/porção', time: '15 min', trick: 'Rale 1/4 da calabresa no ralador de queijo. Frite no óleo com o alho. A gordura fica com gosto defumado intenso. Misture no macarrão.' },
+                { id: 2, name: 'Polenta de Combate', cost: 'R$ 1,00/porção', time: '20 min', trick: 'Ferva água com sal e alho frito. Despeje o fubá aos poucos mexendo sem parar. Coma mole no dia 1. Guarde em pote quadrado, corte em tiras e frite no dia 2.' },
+                { id: 3, name: 'Omelete Estufado', cost: 'R$ 2,50/porção', time: '10 min', trick: 'Bata 2 ovos com 1 colher de água. A água evapora na frigideira e deixa o ovo alto e fofo. Recheie com sobras de couve.' },
+                { id: 4, name: 'Sopa Levanta Defunto', cost: 'R$ 1,50/porção', time: '15 min', trick: 'Bata sobra de feijão ralo no liquidificador com água e alho. Ferva e jogue macarrão cru. O amido engrossa o caldo.' }
+            ]
+        };
+
+        let chartInstance = null;
+
+        // --- VIEWS (HTML Templates) --- //
+        const views = {
+            sistema: `
+                <div class="p-6">
+                    <p class="mb-6 text-textSec font-medium leading-relaxed">
+                        Nesta seção, quebramos a ilusão de que economia significa fome. Você aprenderá a matemática por trás da sobrevivência com R$ 50, focando no alívio mental e no controle das decisões.
+                    </p>
+
+                    <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 mb-8 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-24 h-24 bg-brandYellow opacity-10 rounded-bl-full"></div>
+                        <h2 class="font-poppins font-bold text-2xl mb-3 text-textMain">A Matemática do Volume</h2>
+                        <p class="text-textSec mb-4">A indústria quer vender conveniência cara. A conta dos R$ 50 fecha no <span class="highlight">volume inteligente</span>, não no luxo.</p>
+                        
+                        <div class="space-y-3 mt-6">
+                            <div class="flex items-center gap-3">
+                                <span class="text-2xl">❌</span>
+                                <p class="text-sm font-semibold">Comida que engana: R$10 some em 2 horas (Biscoitos, congelados).</p>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-2xl">✅</span>
+                                <p class="text-sm font-semibold">Comida que sustenta: R$10 rende a semana (Arroz, Feijão, Fubá).</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2 class="font-poppins font-bold text-2xl mb-4 text-textMain">A Fórmula de Combate</h2>
+                    <p class="text-textSec mb-6">A carne não é o prato principal. A carne é o tempero.</p>
+
+                    <div class="bg-slate-800 text-white p-5 rounded-2xl mb-8 flex flex-col gap-2 shadow-lg">
+                        <div class="flex items-center justify-between border-b border-slate-700 pb-2">
+                            <span class="font-poppins font-bold text-slate-300">BASE</span>
+                            <span class="text-sm">Barata & Volumosa</span>
+                        </div>
+                        <div class="flex items-center justify-between border-b border-slate-700 py-2">
+                            <span class="font-poppins font-bold text-brandYellow">+ SABORIZADOR</span>
+                            <span class="text-sm">Forte & Pequeno</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-2">
+                            <span class="font-poppins font-bold text-brandGreen">+ COR</span>
+                            <span class="text-sm">Hortifruti / Xepa</span>
+                        </div>
+                    </div>
+
+                    <h3 class="font-poppins font-bold text-xl mb-4 text-textMain">A Trindade de Ouro</h3>
+                    <div class="grid grid-cols-1 gap-3 mb-8">
+                        <div class="p-4 border border-slate-200 rounded-xl bg-white shadow-sm flex items-start gap-3">
+                            <span class="text-3xl">🥚</span>
+                            <div>
+                                <h4 class="font-bold text-textMain">O Ovo</h4>
+                                <p class="text-sm text-textSec">O rei do custo-benefício. Vira omelete estufado, engrossa caldo, vira mexido.</p>
+                            </div>
+                        </div>
+                        <div class="p-4 border border-slate-200 rounded-xl bg-white shadow-sm flex items-start gap-3">
+                            <span class="text-3xl">🧆</span>
+                            <div>
+                                <h4 class="font-bold text-textMain">Proteína de Soja (PTS)</h4>
+                                <p class="text-sm text-textSec">Multiplicador de volume. Absorve o sabor do tempero e engana o cérebro.</p>
+                            </div>
+                        </div>
+                        <div class="p-4 border border-slate-200 rounded-xl bg-white shadow-sm flex items-start gap-3">
+                            <span class="text-3xl">🌽</span>
+                            <div>
+                                <h4 class="font-bold text-textMain">Fubá</h4>
+                                <p class="text-sm text-textSec">A argamassa da fome. R$3 faz polenta mole, frita e farofa para a semana.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `,
+            prep: `
+                <div class="p-6">
+                    <p class="mb-6 text-textSec font-medium leading-relaxed">
+                        Nesta seção, transformamos a fadiga de cozinhar em um hábito de 2 horas. Marque os itens do seu <strong>Sunday Reset</strong> para garantir que a semana flua no automático, sem estourar o orçamento.
+                    </p>
+
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-sm border border-slate-200 text-2xl">
+                            ⏱️
+                        </div>
+                        <div>
+                            <h2 class="font-poppins font-bold text-2xl text-textMain">Sunday Reset</h2>
+                            <p class="text-xs font-bold text-textSec uppercase tracking-wider">Missão de 2 Horas</p>
+                        </div>
+                    </div>
+
+                    <p class="text-textSec mb-6">O segredo para não pedir delivery na quarta-feira é o cansaço não ser um obstáculo. Terceirize o trabalho para o seu "eu do passado".</p>
+
+                    <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden mb-8">
+                        <div class="p-4 bg-slate-50 border-b border-slate-200 flex justify-between items-center">
+                            <span class="font-poppins font-bold text-sm text-slate-500 uppercase">Checklist da Semana</span>
+                            <span id="prep-progress" class="font-bold text-brandGreen">0/4</span>
+                        </div>
+                        <div class="divide-y divide-slate-100">
+                            ${createCheckItem('prep1', 'O Feijão Dobrado', 'Cozinhe o feijão da semana. Amasse 2 conchas dos grãos para engrossar o caldo e render mais.')}
+                            ${createCheckItem('prep2', 'A Base de Sabor', 'Pique toda a cebola e alho. Guarde em pote de vidro com óleo. Refogado em 3 segundos.')}
+                            ${createCheckItem('prep3', 'Proteína de Combate', 'Hidrate a PTS ou cozinhe/desfie o frango (se tiver). Deixe pronto em um pote.')}
+                            ${createCheckItem('prep4', 'Corte da Xepa', 'Lave, pique e guarde a couve/repolho com papel toalha no fundo do pote (dobra a validade).')}
+                        </div>
+                    </div>
+
+                    <div class="p-5 bg-yellow-50 border border-brandYellow/30 rounded-2xl">
+                        <h3 class="font-poppins font-bold text-brandYellow mb-2 flex items-center gap-2"><span>💡</span> Regra do Zero Desperdício</h3>
+                        <p class="text-sm text-slate-700 leading-relaxed">Geladeira apenas o que vai comer em 3 dias. O restante vai pro congelador em porções pequenas. Perder feijão azedo é crime contra seu bolso.</p>
+                    </div>
+                </div>
+            `,
+            arsenal: `
+                <div class="p-6">
+                    <p class="mb-6 text-textSec font-medium leading-relaxed">
+                        Aqui está a prova do crime e sua ferramenta tática. Explore como os R$ 50 são divididos matematicamente, visualize o cardápio rotativo da semana e acesse as fichas técnicas de preparo.
+                    </p>
+
+                    <h2 class="font-poppins font-bold text-2xl mb-2 text-textMain">A Prova Matemática</h2>
+                    <p class="text-textSec mb-6 text-sm">A nota fiscal do sobrevivente. Arraste para ver os valores no gráfico.</p>
+
+                    <!-- Chart Container (Strict styling applied) -->
+                    <div class="bg-white p-4 rounded-3xl shadow-sm border border-slate-200 mb-8">
+                        <div class="chart-container">
+                            <canvas id="budgetChart"></canvas>
+                        </div>
+                        <div class="mt-2 text-center">
+                            <span class="inline-block bg-slate-100 px-4 py-1 rounded-full font-poppins font-bold text-xl text-textMain">
+                                TOTAL: <span class="text-brandGreen">R$ 50,00</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <h2 class="font-poppins font-bold text-2xl mb-4 text-textMain">Cardápio Blindado</h2>
+                    <p class="text-textSec mb-4 text-sm">Deslize para ver os 7 dias. Rotação de textura para não enjoar.</p>
+
+                    <!-- Horizontal Scroll Menu -->
+                    <div class="flex overflow-x-auto gap-4 pb-6 no-scrollbar snap-x">
+                        ${data.menu.map(day => `
+                            <div class="min-w-[260px] bg-white rounded-3xl border border-slate-200 shadow-sm p-5 snap-center shrink-0">
+                                <div class="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
+                                    <span class="font-poppins font-bold text-lg text-textMain">DIA ${day.day}</span>
+                                    <span class="text-xs font-bold text-brandYellow uppercase tracking-wider">${day.title}</span>
+                                </div>
+                                <div class="space-y-3 text-[14px]">
+                                    <div>
+                                        <p class="text-[10px] font-bold text-slate-400 uppercase">Café</p>
+                                        <p class="font-medium text-textMain">${day.breakfast}</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-[10px] font-bold text-slate-400 uppercase">Almoço</p>
+                                        <p class="font-medium text-textMain">${day.lunch}</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-[10px] font-bold text-slate-400 uppercase">Jantar</p>
+                                        <p class="font-medium text-textMain">${day.dinner}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <h2 class="font-poppins font-bold text-2xl mb-4 text-textMain mt-4">Fichas de Combate</h2>
+                    <div class="space-y-3 mb-8">
+                        ${data.recipes.map(recipe => `
+                            <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+                                <button onclick="toggleRecipe(${recipe.id})" class="w-full p-4 flex justify-between items-center bg-white text-left focus:outline-none">
+                                    <span class="font-poppins font-bold text-[15px] text-textMain">${recipe.name}</span>
+                                    <span id="icon-recipe-${recipe.id}" class="text-slate-400 transition-transform duration-300">▼</span>
+                                </button>
+                                <div id="content-recipe-${recipe.id}" class="hidden px-4 pb-4 bg-slate-50 border-t border-slate-100">
+                                    <div class="flex gap-4 my-3">
+                                        <span class="text-xs font-bold text-slate-500 bg-white px-2 py-1 rounded border border-slate-200">⏱️ ${recipe.time}</span>
+                                        <span class="text-xs font-bold text-slate-500 bg-white px-2 py-1 rounded border border-slate-200">💰 ${recipe.cost}</span>
+                                    </div>
+                                    <p class="text-[14px] text-textMain font-medium leading-relaxed">
+                                        <span class="font-bold text-brandYellow">O Truque:</span> ${recipe.trick}
+                                    </p>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `,
+            raiox: `
+                <div class="p-6">
+                    <p class="mb-6 text-textSec font-medium leading-relaxed">
+                        Nunca vá ao mercado sem antes fazer este checklist. Aqui, aplicamos a regra de ouro: encontrar dinheiro escondido na sua própria cozinha antes de gastar um centavo.
+                    </p>
+
+                    <h2 class="font-poppins font-bold text-2xl mb-2 text-textMain">Raio-X da Geladeira</h2>
+                    <p class="text-textSec mb-6">A regra de ouro: nunca compre o que já tem. Marque o que você encontrou (isso vira economia real).</p>
+
+                    <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden mb-8">
+                        <div class="divide-y divide-slate-100">
+                            ${createCheckItem('rx1', 'A Base (Carboidratos)', 'Pacote aberto de arroz, macarrão ou fubá? (Risque da lista, você salvou R$ 5)')}
+                            ${createCheckItem('rx2', 'A Proteína', 'Quantos ovos restaram? Tem carne congelada ou PTS guardada?')}
+                            ${createCheckItem('rx3', 'A Xepa (Hortifruti)', 'Cenoura murcha vira sopa. Tomate passado vira molho rústico. Olhe a gaveta.')}
+                            ${createCheckItem('rx4', 'O Saborizador', 'Tem sal, óleo, alho, cebola e temperos secos (páprica, orégano)?')}
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800 p-6 rounded-3xl text-center shadow-xl mt-12 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-brandRed"></div>
+                        <h3 class="font-poppins font-bold text-white text-xl mb-3">Quer automatizar isso?</h3>
+                        <p class="text-slate-300 text-sm mb-6">Não quer pensar no cardápio na semana que vem? Tenha acesso ao planejamento do mês inteiro.</p>
+                        
+                        <!-- CTA ONLY USES RED -->
+                        <button class="w-full bg-brandRed text-white font-poppins font-bold py-4 rounded-xl shadow-lg transition-transform active:scale-95 text-lg">
+                            Liberar Plano Mensal Completo
+                        </button>
+                    </div>
+                </div>
+            `
+        };
+
+        // --- CORE LOGIC --- //
+
+        function createCheckItem(id, title, desc) {
+            return `
+                <div class="p-4 flex items-start gap-3 cursor-pointer hover:bg-slate-50 transition-colors" onclick="toggleCheck('${id}')">
+                    <div id="box-${id}" class="mt-1 w-6 h-6 rounded border-2 border-slate-300 flex items-center justify-center shrink-0 transition-colors bg-white">
+                        <span id="check-${id}" class="hidden text-white text-sm">✔</span>
+                    </div>
+                    <div>
+                        <p id="title-${id}" class="font-poppins font-bold text-[15px] text-textMain transition-colors">${title}</p>
+                        <p class="text-sm text-textSec leading-snug mt-1">${desc}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        const state = {
+            checks: {}
+        };
+
+        function toggleCheck(id) {
+            state.checks[id] = !state.checks[id];
+            const box = document.getElementById(`box-${id}`);
+            const check = document.getElementById(`check-${id}`);
+            const title = document.getElementById(`title-${id}`);
+
+            if (state.checks[id]) {
+                box.classList.remove('border-slate-300', 'bg-white');
+                box.classList.add('bg-brandGreen', 'border-brandGreen');
+                check.classList.remove('hidden');
+                title.classList.add('text-slate-400', 'line-through');
+            } else {
+                box.classList.add('border-slate-300', 'bg-white');
+                box.classList.remove('bg-brandGreen', 'border-brandGreen');
+                check.classList.add('hidden');
+                title.classList.remove('text-slate-400', 'line-through');
+            }
+
+            // Update Progress if it's a prep task
+            if(id.startsWith('prep')) {
+                const total = 4;
+                const completed = Object.keys(state.checks).filter(k => k.startsWith('prep') && state.checks[k]).length;
+                document.getElementById('prep-progress').innerText = `${completed}/${total}`;
+            }
+        }
+
+        function toggleRecipe(id) {
+            const content = document.getElementById(`content-recipe-${id}`);
+            const icon = document.getElementById(`icon-recipe-${id}`);
+            
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                content.classList.add('fade-in');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                content.classList.add('hidden');
+                content.classList.remove('fade-in');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        function renderChart() {
+            const ctx = document.getElementById('budgetChart');
+            if(!ctx) return;
+
+            if(chartInstance) chartInstance.destroy();
+
+            chartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: data.budgetBreakdown.labels,
+                    datasets: [{
+                        data: data.budgetBreakdown.values,
+                        backgroundColor: data.budgetBreakdown.colors,
+                        borderWidth: 2,
+                        borderColor: '#ffffff',
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false, // Critical for container bounds
+                    cutout: '65%',
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                font: { family: "'Open Sans', sans-serif", size: 11 },
+                                color: '#475569',
+                                boxWidth: 12,
+                                padding: 15
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: '#0F172A',
+                            titleFont: { family: "'Poppins', sans-serif", size: 13 },
+                            bodyFont: { family: "'Open Sans', sans-serif", size: 13 },
+                            padding: 12,
+                            cornerRadius: 8,
+                            callbacks: {
+                                label: function(context) {
+                                    return ' R$ ' + context.parsed + ',00';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function navigate(tabId) {
+            // Update UI
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            document.getElementById(`nav-${tabId}`).classList.add('active');
+            
+            // Inject Content
+            const mainContent = document.getElementById('main-content');
+            mainContent.innerHTML = views[tabId];
+            
+            // Re-trigger animation
+            mainContent.classList.remove('fade-in');
+            void mainContent.offsetWidth; // trigger reflow
+            mainContent.classList.add('fade-in');
+
+            // Initialize specific tab logic
+            if (tabId === 'arsenal') {
+                setTimeout(renderChart, 50); // Small delay to ensure DOM is ready
+            }
+
+            window.scrollTo(0,0);
+        }
+
+        // --- INIT --- //
+        window.onload = () => {
+            navigate('sistema'); // Default view
+        };
+    </script>
+</body>
+</html>
